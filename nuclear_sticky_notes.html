@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuclear Physics — Revision Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --board-bg: #16211c;
+    --board-bg-2: #131c17;
+    --trace: rgba(120, 200, 160, 0.09);
+    --trace-strong: rgba(120, 200, 160, 0.16);
+    --note-a: #f3d66c;   --note-a-2: #eecd57;   /* Atomic Structure */
+    --note-b: #86c1da;   --note-b-2: #6fb2cf;   /* Isotopes & Notation */
+    --note-c: #8fd6a8;   --note-c-2: #78c894;   /* Types of Radiation */
+    --note-d: #c6a6dd;   --note-d-2: #b48ccf;   /* Half-Life & Decay */
+    --note-e: #e78a72;   --note-e-2: #e0765b;   /* Uses, Dangers & Safety */
+    --ink: #23291f;
+    --ink-soft: #3a4232;
+    --paper-edge: rgba(0,0,0,0.14);
+    --pin-metal: #cfd6d1;
+    --pin-metal-dark: #8b938c;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 18% 8%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 82% 22%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 40% 65%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 68% 88%, var(--trace-strong) 0, transparent 2px),
+      repeating-linear-gradient(90deg, var(--trace) 0px, var(--trace) 1px, transparent 1px, transparent 64px),
+      repeating-linear-gradient(0deg, var(--trace) 0px, var(--trace) 1px, transparent 1px, transparent 64px),
+      linear-gradient(160deg, var(--board-bg) 0%, var(--board-bg-2) 100%);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    padding: 40px 20px 70px;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  /* ---- Title card ---- */
+  .title-card {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto 56px;
+    background: linear-gradient(180deg, #fbf3d9 0%, #f5e8bd 100%);
+    border-radius: 3px;
+    padding: 30px 38px 26px;
+    text-align: center;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35), 0 2px 0 var(--paper-edge);
+    transform: rotate(-0.6deg);
+  }
+  .title-card::before,
+  .title-card::after {
+    content: "";
+    position: absolute;
+    top: -9px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--pin-metal), var(--pin-metal-dark));
+    box-shadow: 0 3px 4px rgba(0,0,0,0.4);
+  }
+  .title-card::before { left: 30px; transform: rotate(-8deg); }
+  .title-card::after  { right: 30px; transform: rotate(10deg); }
+  .title-card h1 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1;
+    margin: 6px 0 10px;
+    color: #2a1f0f;
+  }
+  .title-card p { margin: 0; font-size: 0.92rem; color: #5c5136; font-weight: 500; }
+
+  /* ---- Legend ---- */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 22px;
+    margin: 0 auto 48px;
+    max-width: 800px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.86rem; color: #cfe3d6; }
+  .swatch { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+  .swatch.a { background: var(--note-a-2); }
+  .swatch.b { background: var(--note-b-2); }
+  .swatch.c { background: var(--note-c-2); }
+  .swatch.d { background: var(--note-d-2); }
+  .swatch.e { background: var(--note-e-2); }
+
+  /* ---- Sections ---- */
+  .board-section { margin-bottom: 52px; }
+
+  .tab {
+    display: inline-block;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.55rem;
+    padding: 5px 22px 8px;
+    border-radius: 6px 6px 0 0;
+    margin-left: 18px;
+    margin-bottom: -2px;
+    position: relative;
+    z-index: 2;
+    color: var(--ink);
+  }
+  .tab.a { background: var(--note-a); }
+  .tab.b { background: var(--note-b); }
+  .tab.c { background: var(--note-c); }
+  .tab.d { background: var(--note-d); }
+  .tab.e { background: var(--note-e); }
+
+  .notes-grid {
+    background: rgba(0,0,0,0.15);
+    border-radius: 4px;
+    padding: 30px 26px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px 22px;
+    align-items: flex-start;
+  }
+
+  /* ---- Notes ---- */
+  .note {
+    position: relative;
+    width: 232px;
+    min-height: 168px;
+    padding: 20px 18px 16px;
+    border-radius: 2px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.30);
+  }
+  .note.r1 { transform: rotate(-2.4deg); }
+  .note.r2 { transform: rotate(1.8deg); }
+  .note.r3 { transform: rotate(-0.9deg); }
+  .note.r4 { transform: rotate(2.6deg); }
+  .note.r5 { transform: rotate(-1.6deg); }
+
+  .note::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--pin-metal), var(--pin-metal-dark));
+    box-shadow: 0 3px 3px rgba(0,0,0,0.4);
+  }
+
+  .note--a { background: linear-gradient(180deg, var(--note-a) 0%, var(--note-a-2) 100%); }
+  .note--b { background: linear-gradient(180deg, var(--note-b) 0%, var(--note-b-2) 100%); }
+  .note--c { background: linear-gradient(180deg, var(--note-c) 0%, var(--note-c-2) 100%); }
+  .note--d { background: linear-gradient(180deg, var(--note-d) 0%, var(--note-d-2) 100%); }
+  .note--e { background: linear-gradient(180deg, var(--note-e) 0%, var(--note-e-2) 100%); }
+
+  .note h3 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin: 0 0 8px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .note p { margin: 0 0 7px; font-size: 0.79rem; line-height: 1.42; color: var(--ink-soft); }
+  .note p:last-child { margin-bottom: 0; }
+
+  .note .eq {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 0.83rem;
+    background: rgba(255,255,255,0.32);
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin: 2px 0 7px;
+  }
+
+  footer { text-align: center; color: #79897e; font-size: 0.78rem; margin-top: 10px; }
+
+  @media (max-width: 640px) {
+    .title-card h1 { font-size: 2.3rem; }
+    .note { width: 100%; }
+    .notes-grid { padding: 24px 16px 18px; }
+    .tab { margin-left: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="title-card">
+    <h1>Nuclear Physics</h1>
+    <p>Revision notes for Cambridge IGCSE Physics 0625, Unit 5</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="swatch a"></span>Atomic Structure</div>
+    <div class="legend-item"><span class="swatch b"></span>Isotopes & Notation</div>
+    <div class="legend-item"><span class="swatch c"></span>Types of Radiation</div>
+    <div class="legend-item"><span class="swatch d"></span>Half-Life & Decay</div>
+    <div class="legend-item"><span class="swatch e"></span>Uses, Dangers & Safety</div>
+  </div>
+
+  <!-- ATOMIC STRUCTURE -->
+  <section class="board-section">
+    <span class="tab a">Atomic Structure</span>
+    <div class="notes-grid">
+
+      <article class="note note--a r1">
+        <h3>Structure of the atom</h3>
+        <p>A tiny, dense, positively charged nucleus (protons + neutrons) surrounded by electrons in shells. The atom is mostly empty space.</p>
+      </article>
+
+      <article class="note note--a r3">
+        <h3>Subatomic particles</h3>
+        <p><strong>Proton:</strong> +1, mass 1, in nucleus. <strong>Neutron:</strong> 0, mass 1, in nucleus. <strong>Electron:</strong> −1, negligible mass, orbits nucleus.</p>
+      </article>
+
+      <article class="note note--a r2">
+        <h3>Alpha-particle scattering</h3>
+        <p>Most alpha particles passed straight through gold foil; a few deflected sharply or bounced back — showing a tiny, dense, positive nucleus with mostly empty space around it.</p>
+      </article>
+
+      <article class="note note--a r4">
+        <h3>Proton (atomic) number, Z</h3>
+        <p>The number of protons in the nucleus. It defines which element the atom is.</p>
+      </article>
+
+      <article class="note note--a r5">
+        <h3>Nucleon (mass) number, A</h3>
+        <p>The total number of protons plus neutrons in the nucleus.</p>
+      </article>
+
+      <article class="note note--a r2">
+        <h3>Neutral atoms</h3>
+        <p>Number of electrons = number of protons, so the atom has no overall electric charge.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ISOTOPES & NOTATION -->
+  <section class="board-section">
+    <span class="tab b">Isotopes & Notation</span>
+    <div class="notes-grid">
+
+      <article class="note note--b r4">
+        <h3>Isotopes</h3>
+        <p>Atoms of the same element (same proton number) with different numbers of neutrons, so a different nucleon number.</p>
+      </article>
+
+      <article class="note note--b r1">
+        <h3>Nuclide notation</h3>
+        <p class="eq">ᴬZX</p>
+        <p>A = nucleon number (top), Z = proton number (bottom), X = element symbol.</p>
+      </article>
+
+      <article class="note note--b r5">
+        <h3>Ions</h3>
+        <p>Atoms that have lost or gained electrons, giving an overall charge. The number of protons stays the same.</p>
+      </article>
+
+      <article class="note note--b r3">
+        <h3>Stable vs unstable nuclei</h3>
+        <p>Some isotopes have a stable balance of protons and neutrons. Unstable (radioactive) isotopes decay, emitting radiation, to become more stable.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- TYPES OF RADIATION -->
+  <section class="board-section">
+    <span class="tab c">Types of Radiation</span>
+    <div class="notes-grid">
+
+      <article class="note note--c r2">
+        <h3>Alpha (α)</h3>
+        <p>2 protons + 2 neutrons; charge +2. Least penetrating — stopped by paper or skin. Most strongly ionising. Deflected slightly by fields.</p>
+      </article>
+
+      <article class="note note--c r4">
+        <h3>Beta (β)</h3>
+        <p>A fast electron from the nucleus (a neutron becomes a proton). Charge −1. Stopped by a few mm of aluminium. Deflected more than alpha, the opposite way.</p>
+      </article>
+
+      <article class="note note--c r1">
+        <h3>Gamma (γ)</h3>
+        <p>High-energy electromagnetic wave from the nucleus. No charge, no mass. Most penetrating — needs thick lead or concrete to stop. Not deflected by fields.</p>
+      </article>
+
+      <article class="note note--c r5">
+        <h3>Detecting radiation</h3>
+        <p>A Geiger–Müller (GM) tube and counter detects radiation and measures the count rate.</p>
+      </article>
+
+      <article class="note note--c r3">
+        <h3>Background radiation</h3>
+        <p>Present all the time, from natural sources (rocks, cosmic rays, food) and artificial ones (medical, nuclear industry). Subtract it to find a source's true reading.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- HALF-LIFE & DECAY -->
+  <section class="board-section">
+    <span class="tab d">Half-Life & Decay</span>
+    <div class="notes-grid">
+
+      <article class="note note--d r3">
+        <h3>Radioactive decay</h3>
+        <p>Random and spontaneous. You can't predict when a particular unstable nucleus will decay, and physical or chemical conditions don't affect it.</p>
+      </article>
+
+      <article class="note note--d r1">
+        <h3>Half-life</h3>
+        <p>The time for half the undecayed nuclei in a sample to decay — or for the activity/count rate to fall to half its original value.</p>
+      </article>
+
+      <article class="note note--d r4">
+        <h3>Using half-life</h3>
+        <p class="eq">fraction remaining = (½)ⁿ</p>
+        <p>Where n is the number of half-lives that have passed.</p>
+      </article>
+
+      <article class="note note--d r2">
+        <h3>Alpha decay</h3>
+        <p>Nucleon number falls by 4, proton number falls by 2, and an alpha particle (⁴₂He) is emitted.</p>
+      </article>
+
+      <article class="note note--d r5">
+        <h3>Beta decay</h3>
+        <p>Nucleon number stays the same, proton number rises by 1 (a neutron becomes a proton), and a beta particle is emitted.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- USES, DANGERS & SAFETY -->
+  <section class="board-section">
+    <span class="tab e">Uses, Dangers & Safety</span>
+    <div class="notes-grid">
+
+      <article class="note note--e r4">
+        <h3>Uses of radiation</h3>
+        <p><strong>Alpha:</strong> smoke detectors. <strong>Beta:</strong> controlling material thickness. <strong>Gamma:</strong> medical tracers/treatment, sterilising, checking welds.</p>
+      </article>
+
+      <article class="note note--e r2">
+        <h3>Dangers</h3>
+        <p>Ionising radiation can damage or kill living cells, and cause mutations that may lead to cancer.</p>
+      </article>
+
+      <article class="note note--e r5">
+        <h3>Safety precautions</h3>
+        <p>Minimise exposure time, maximise distance from the source, use shielding, store sources in lead-lined containers, and handle them with tongs, never bare hands.</p>
+      </article>
+
+      <article class="note note--e r1">
+        <h3>Contamination vs irradiation</h3>
+        <p><strong>Contamination:</strong> unwanted radioactive material getting onto or into something, causing ongoing exposure. <strong>Irradiation:</strong> exposure to radiation without becoming radioactive.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>Cambridge IGCSE Physics 0625 · Unit 5 — Nuclear (Atomic) Physics</footer>
+
+</div>
+</body>
+</html>

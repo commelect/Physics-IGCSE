@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electricity & Magnetism — Revision Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --board-bg: #16211c;
+    --board-bg-2: #131c17;
+    --trace: rgba(120, 200, 160, 0.09);
+    --trace-strong: rgba(120, 200, 160, 0.16);
+    --note-yellow: #f3d66c;
+    --note-yellow-2: #eecd57;
+    --note-blue: #86c1da;
+    --note-blue-2: #6fb2cf;
+    --note-mint: #8fd6a8;
+    --note-mint-2: #78c894;
+    --note-coral: #e78a72;
+    --note-coral-2: #e0765b;
+    --ink: #23291f;
+    --ink-soft: #3a4232;
+    --paper-edge: rgba(0,0,0,0.14);
+    --pin-metal: #cfd6d1;
+    --pin-metal-dark: #8b938c;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 18% 8%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 82% 22%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 40% 65%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 68% 88%, var(--trace-strong) 0, transparent 2px),
+      repeating-linear-gradient(90deg, var(--trace) 0px, var(--trace) 1px, transparent 1px, transparent 64px),
+      repeating-linear-gradient(0deg, var(--trace) 0px, var(--trace) 1px, transparent 1px, transparent 64px),
+      linear-gradient(160deg, var(--board-bg) 0%, var(--board-bg-2) 100%);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    padding: 40px 20px 70px;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  /* ---- Title card ---- */
+  .title-card {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto 56px;
+    background: linear-gradient(180deg, #fbf3d9 0%, #f5e8bd 100%);
+    border-radius: 3px;
+    padding: 30px 38px 26px;
+    text-align: center;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35), 0 2px 0 var(--paper-edge);
+    transform: rotate(-0.6deg);
+  }
+  .title-card::before,
+  .title-card::after {
+    content: "";
+    position: absolute;
+    top: -9px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--pin-metal), var(--pin-metal-dark));
+    box-shadow: 0 3px 4px rgba(0,0,0,0.4);
+  }
+  .title-card::before { left: 30px; transform: rotate(-8deg); }
+  .title-card::after  { right: 30px; transform: rotate(10deg); }
+  .title-card h1 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1;
+    margin: 6px 0 10px;
+    color: #2a1f0f;
+  }
+  .title-card p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: #5c5136;
+    font-weight: 500;
+  }
+
+  /* ---- Legend ---- */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 22px;
+    margin: 0 auto 48px;
+    max-width: 720px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.86rem;
+    color: #cfe3d6;
+  }
+  .swatch {
+    width: 13px;
+    height: 13px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .swatch.q { background: var(--note-yellow-2); }
+  .swatch.c { background: var(--note-blue-2); }
+  .swatch.m { background: var(--note-mint-2); }
+  .swatch.s { background: var(--note-coral-2); }
+
+  /* ---- Sections ---- */
+  .board-section { margin-bottom: 52px; }
+
+  .tab {
+    display: inline-block;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.55rem;
+    padding: 5px 22px 8px;
+    border-radius: 6px 6px 0 0;
+    margin-left: 18px;
+    margin-bottom: -2px;
+    position: relative;
+    z-index: 2;
+    color: var(--ink);
+  }
+  .tab.q { background: var(--note-yellow); }
+  .tab.c { background: var(--note-blue); }
+  .tab.m { background: var(--note-mint); }
+  .tab.s { background: var(--note-coral); }
+
+  .notes-grid {
+    background: rgba(0,0,0,0.15);
+    border-radius: 4px;
+    padding: 30px 26px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px 22px;
+    align-items: flex-start;
+  }
+
+  /* ---- Notes ---- */
+  .note {
+    position: relative;
+    width: 232px;
+    min-height: 168px;
+    padding: 20px 18px 16px;
+    border-radius: 2px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.30);
+  }
+  .note.r1 { transform: rotate(-2.4deg); }
+  .note.r2 { transform: rotate(1.8deg); }
+  .note.r3 { transform: rotate(-0.9deg); }
+  .note.r4 { transform: rotate(2.6deg); }
+  .note.r5 { transform: rotate(-1.6deg); }
+
+  .note::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--pin-metal), var(--pin-metal-dark));
+    box-shadow: 0 3px 3px rgba(0,0,0,0.4);
+  }
+
+  .note--q { background: linear-gradient(180deg, var(--note-yellow) 0%, var(--note-yellow-2) 100%); }
+  .note--c { background: linear-gradient(180deg, var(--note-blue) 0%, var(--note-blue-2) 100%); }
+  .note--m { background: linear-gradient(180deg, var(--note-mint) 0%, var(--note-mint-2) 100%); }
+  .note--s { background: linear-gradient(180deg, var(--note-coral) 0%, var(--note-coral-2) 100%); }
+
+  .note h3 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin: 0 0 8px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .note p {
+    margin: 0 0 7px;
+    font-size: 0.79rem;
+    line-height: 1.42;
+    color: var(--ink-soft);
+  }
+  .note p:last-child { margin-bottom: 0; }
+
+  .note .eq {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 0.83rem;
+    background: rgba(255,255,255,0.32);
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin: 2px 0 7px;
+  }
+
+  footer {
+    text-align: center;
+    color: #79897e;
+    font-size: 0.78rem;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 640px) {
+    .title-card h1 { font-size: 2.3rem; }
+    .note { width: 100%; }
+    .notes-grid { padding: 24px 16px 18px; }
+    .tab { margin-left: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="title-card">
+    <h1>Electricity & Magnetism</h1>
+    <p>Revision notes for Cambridge IGCSE Physics 0625, Unit 4</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="swatch q"></span>Charge, Current & Quantities</div>
+    <div class="legend-item"><span class="swatch c"></span>Circuits & Power</div>
+    <div class="legend-item"><span class="swatch m"></span>Magnetism & Electromagnetic Effects</div>
+    <div class="legend-item"><span class="swatch s"></span>Electrical Safety</div>
+  </div>
+
+  <!-- CHARGE, CURRENT & QUANTITIES -->
+  <section class="board-section">
+    <span class="tab q">Charge, Current & Quantities</span>
+    <div class="notes-grid">
+
+      <article class="note note--q r1">
+        <h3>Electric current</h3>
+        <p class="eq">I = Q / t</p>
+        <p>Rate of flow of charge, in amperes (A). Conventional current flows from + to − round the circuit — opposite to the direction electrons actually move.</p>
+      </article>
+
+      <article class="note note--q r2">
+        <h3>Electric charge</h3>
+        <p class="eq">Q = I × t</p>
+        <p>Measured in coulombs (C). In a metal wire, the charge carriers are free electrons.</p>
+      </article>
+
+      <article class="note note--q r3">
+        <h3>e.m.f.</h3>
+        <p class="eq">e.m.f. = W / Q</p>
+        <p>Energy the source (e.g. a cell) gives to each coulomb of charge. Unit: volt (V). It's what drives current around a complete circuit.</p>
+      </article>
+
+      <article class="note note--q r4">
+        <h3>p.d. (voltage)</h3>
+        <p class="eq">V = W / Q</p>
+        <p>Energy transferred to a component per coulomb of charge passing through it. Measured with a voltmeter connected in parallel across the component.</p>
+      </article>
+
+      <article class="note note--q r5">
+        <h3>Resistance</h3>
+        <p class="eq">R = V / I</p>
+        <p>Unit: ohm (Ω). Ammeter goes in series to measure current; voltmeter goes in parallel to measure p.d. across the component.</p>
+      </article>
+
+      <article class="note note--q r2">
+        <h3>What changes resistance</h3>
+        <p>Longer wire → more resistance. Thicker wire (larger area) → less resistance. Higher temperature → more resistance for a metal.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CIRCUITS & POWER -->
+  <section class="board-section">
+    <span class="tab c">Circuits & Power</span>
+    <div class="notes-grid">
+
+      <article class="note note--c r3">
+        <h3>Series circuits</h3>
+        <p>Same current at every point. The p.d.s across each component add up to the source p.d.</p>
+        <p class="eq">R = R₁ + R₂ + …</p>
+      </article>
+
+      <article class="note note--c r1">
+        <h3>Parallel circuits</h3>
+        <p>Same p.d. across every branch. The branch currents add up to the total current from the source.</p>
+        <p class="eq">1/R = 1/R₁ + 1/R₂ + …</p>
+      </article>
+
+      <article class="note note--c r4">
+        <h3>Ohm's law</h3>
+        <p class="eq">V = I R</p>
+        <p>Holds for a resistor at constant temperature. Its I–V graph is a straight line through the origin.</p>
+      </article>
+
+      <article class="note note--c r5">
+        <h3>Non-ohmic components</h3>
+        <p><strong>Filament lamp:</strong> resistance rises as it heats up, so the I–V graph curves over. <strong>Diode:</strong> conducts one way only — almost no current in reverse.</p>
+      </article>
+
+      <article class="note note--c r2">
+        <h3>Electrical power</h3>
+        <p class="eq">P = VI = I²R = V²/R</p>
+        <p>Unit: watt (W) — the rate energy is transferred.</p>
+      </article>
+
+      <article class="note note--c r1">
+        <h3>Electrical energy</h3>
+        <p class="eq">E = P × t = VIt</p>
+        <p>Household bills use kilowatt-hours: energy (kWh) = power (kW) × time (h).</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- MAGNETISM & ELECTROMAGNETIC EFFECTS -->
+  <section class="board-section">
+    <span class="tab m">Magnetism & Electromagnetic Effects</span>
+    <div class="notes-grid">
+
+      <article class="note note--m r4">
+        <h3>Magnetic fields</h3>
+        <p>Field lines run from N to S pole outside the magnet. Lines closer together mean a stronger field.</p>
+      </article>
+
+      <article class="note note--m r2">
+        <h3>Electromagnets</h3>
+        <p>A current-carrying wire has a magnetic field of concentric circles around it. Coiling it into a solenoid concentrates the field; a soft-iron core makes it stronger.</p>
+      </article>
+
+      <article class="note note--m r5">
+        <h3>Right-hand grip rule</h3>
+        <p>Thumb points in the direction of conventional current; curled fingers show the direction of the magnetic field around the wire.</p>
+      </article>
+
+      <article class="note note--m r1">
+        <h3>Force on a conductor (motor effect)</h3>
+        <p class="eq">F = B I L</p>
+        <p>A current-carrying wire in a magnetic field feels a force. Direction is given by Fleming's left-hand rule (thuMb = Motion, First finger = Field, seCond finger = Current).</p>
+      </article>
+
+      <article class="note note--m r3">
+        <h3>Electromagnetic induction</h3>
+        <p>Moving a conductor through a magnetic field — or changing the field through a coil — induces an e.m.f. Bigger e.m.f. from: faster movement, stronger field, more turns.</p>
+      </article>
+
+      <article class="note note--m r5">
+        <h3>Lenz's law</h3>
+        <p>The direction of an induced current always opposes the change that produced it.</p>
+      </article>
+
+      <article class="note note--m r2">
+        <h3>a.c. generator</h3>
+        <p>A coil rotated in a magnetic field induces an alternating e.m.f. Slip rings keep contact with the brushes and let the current reverse every half-turn.</p>
+      </article>
+
+      <article class="note note--m r4">
+        <h3>d.c. motor</h3>
+        <p>A current-carrying coil in a magnetic field turns (forces found with Fleming's left-hand rule). A split-ring commutator reverses the current every half-turn to keep the coil spinning one way.</p>
+      </article>
+
+      <article class="note note--m r1">
+        <h3>Transformer</h3>
+        <p class="eq">Vₚ/Vₛ = Nₚ/Nₛ</p>
+        <p>Changes an alternating p.d. via primary/secondary coils on a soft-iron core. More secondary turns → step-up (voltage increases); fewer → step-down. Ideally, VₚIₚ = VₛIₛ.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ELECTRICAL SAFETY -->
+  <section class="board-section">
+    <span class="tab s">Electrical Safety</span>
+    <div class="notes-grid">
+
+      <article class="note note--s r3">
+        <h3>Fuse</h3>
+        <p>A thin wire that melts and breaks the circuit if the current gets too high, protecting the wiring from overheating and fire.</p>
+      </article>
+
+      <article class="note note--s r1">
+        <h3>Circuit breaker</h3>
+        <p>Switches off automatically once current passes a set value — and unlike a fuse, it can simply be reset afterwards.</p>
+      </article>
+
+      <article class="note note--s r4">
+        <h3>Earthing</h3>
+        <p>The earth wire connects an appliance's metal casing to the ground. If a fault makes the casing live, current flows safely to earth instead of through anyone touching it — blowing the fuse or tripping the breaker.</p>
+      </article>
+
+      <article class="note note--s r2">
+        <h3>Double insulation</h3>
+        <p>An appliance cased entirely in insulating material needs no earth wire, since the casing can never become live.</p>
+      </article>
+
+      <article class="note note--s r5">
+        <h3>Fuse rating</h3>
+        <p>Chosen just above the appliance's normal operating current — common ratings are 3 A, 5 A, and 13 A.</p>
+      </article>
+
+      <article class="note note--s r1">
+        <h3>Wire colours</h3>
+        <p><strong>Live:</strong> brown. <strong>Neutral:</strong> blue. <strong>Earth:</strong> green and yellow stripes.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>Cambridge IGCSE Physics 0625 · Unit 4 — Electricity and Electromagnetism</footer>
+
+</div>
+</body>
+</html>

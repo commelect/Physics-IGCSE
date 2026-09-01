@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thermal Physics — Revision Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --board-bg: #16211c;
+    --board-bg-2: #131c17;
+    --trace: rgba(120, 200, 160, 0.09);
+    --trace-strong: rgba(120, 200, 160, 0.16);
+    --note-a: #f3d66c;   --note-a-2: #eecd57;   /* Kinetic Particle Model */
+    --note-b: #86c1da;   --note-b-2: #6fb2cf;   /* Gas Laws */
+    --note-c: #8fd6a8;   --note-c-2: #78c894;   /* Thermal Expansion */
+    --note-d: #c6a6dd;   --note-d-2: #b48ccf;   /* Specific Heat Capacity */
+    --note-e: #e78a72;   --note-e-2: #e0765b;   /* Thermal Energy Transfer */
+    --ink: #23291f;
+    --ink-soft: #3a4232;
+    --paper-edge: rgba(0,0,0,0.14);
+    --pin-metal: #cfd6d1;
+    --pin-metal-dark: #8b938c;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 18% 8%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 82% 22%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 40% 65%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 68% 88%, var(--trace-strong) 0, transparent 2px),
+      repeating-linear-gradient(90deg, var(--trace) 0px, var(--trace) 1px, transparent 1px, transparent 64px),
+      repeating-linear-gradient(0deg, var(--trace) 0px, var(--trace) 1px, transparent 1px, transparent 64px),
+      linear-gradient(160deg, var(--board-bg) 0%, var(--board-bg-2) 100%);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    padding: 40px 20px 70px;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  /* ---- Title card ---- */
+  .title-card {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto 56px;
+    background: linear-gradient(180deg, #fbf3d9 0%, #f5e8bd 100%);
+    border-radius: 3px;
+    padding: 30px 38px 26px;
+    text-align: center;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35), 0 2px 0 var(--paper-edge);
+    transform: rotate(-0.6deg);
+  }
+  .title-card::before,
+  .title-card::after {
+    content: "";
+    position: absolute;
+    top: -9px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--pin-metal), var(--pin-metal-dark));
+    box-shadow: 0 3px 4px rgba(0,0,0,0.4);
+  }
+  .title-card::before { left: 30px; transform: rotate(-8deg); }
+  .title-card::after  { right: 30px; transform: rotate(10deg); }
+  .title-card h1 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1;
+    margin: 6px 0 10px;
+    color: #2a1f0f;
+  }
+  .title-card p { margin: 0; font-size: 0.92rem; color: #5c5136; font-weight: 500; }
+
+  /* ---- Legend ---- */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 22px;
+    margin: 0 auto 48px;
+    max-width: 800px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.86rem; color: #cfe3d6; }
+  .swatch { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+  .swatch.a { background: var(--note-a-2); }
+  .swatch.b { background: var(--note-b-2); }
+  .swatch.c { background: var(--note-c-2); }
+  .swatch.d { background: var(--note-d-2); }
+  .swatch.e { background: var(--note-e-2); }
+
+  /* ---- Sections ---- */
+  .board-section { margin-bottom: 52px; }
+
+  .tab {
+    display: inline-block;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.55rem;
+    padding: 5px 22px 8px;
+    border-radius: 6px 6px 0 0;
+    margin-left: 18px;
+    margin-bottom: -2px;
+    position: relative;
+    z-index: 2;
+    color: var(--ink);
+  }
+  .tab.a { background: var(--note-a); }
+  .tab.b { background: var(--note-b); }
+  .tab.c { background: var(--note-c); }
+  .tab.d { background: var(--note-d); }
+  .tab.e { background: var(--note-e); }
+
+  .notes-grid {
+    background: rgba(0,0,0,0.15);
+    border-radius: 4px;
+    padding: 30px 26px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px 22px;
+    align-items: flex-start;
+  }
+
+  /* ---- Notes ---- */
+  .note {
+    position: relative;
+    width: 232px;
+    min-height: 168px;
+    padding: 20px 18px 16px;
+    border-radius: 2px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.30);
+  }
+  .note.r1 { transform: rotate(-2.4deg); }
+  .note.r2 { transform: rotate(1.8deg); }
+  .note.r3 { transform: rotate(-0.9deg); }
+  .note.r4 { transform: rotate(2.6deg); }
+  .note.r5 { transform: rotate(-1.6deg); }
+
+  .note::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--pin-metal), var(--pin-metal-dark));
+    box-shadow: 0 3px 3px rgba(0,0,0,0.4);
+  }
+
+  .note--a { background: linear-gradient(180deg, var(--note-a) 0%, var(--note-a-2) 100%); }
+  .note--b { background: linear-gradient(180deg, var(--note-b) 0%, var(--note-b-2) 100%); }
+  .note--c { background: linear-gradient(180deg, var(--note-c) 0%, var(--note-c-2) 100%); }
+  .note--d { background: linear-gradient(180deg, var(--note-d) 0%, var(--note-d-2) 100%); }
+  .note--e { background: linear-gradient(180deg, var(--note-e) 0%, var(--note-e-2) 100%); }
+
+  .note h3 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin: 0 0 8px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .note p { margin: 0 0 7px; font-size: 0.79rem; line-height: 1.42; color: var(--ink-soft); }
+  .note p:last-child { margin-bottom: 0; }
+
+  .note .eq {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 0.83rem;
+    background: rgba(255,255,255,0.32);
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin: 2px 0 7px;
+  }
+
+  footer { text-align: center; color: #79897e; font-size: 0.78rem; margin-top: 10px; }
+
+  @media (max-width: 640px) {
+    .title-card h1 { font-size: 2.3rem; }
+    .note { width: 100%; }
+    .notes-grid { padding: 24px 16px 18px; }
+    .tab { margin-left: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="title-card">
+    <h1>Thermal Physics</h1>
+    <p>Revision notes for Cambridge IGCSE Physics 0625, Unit 2</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="swatch a"></span>Kinetic Particle Model</div>
+    <div class="legend-item"><span class="swatch b"></span>Gas Laws</div>
+    <div class="legend-item"><span class="swatch c"></span>Thermal Expansion</div>
+    <div class="legend-item"><span class="swatch d"></span>Specific Heat Capacity</div>
+    <div class="legend-item"><span class="swatch e"></span>Thermal Energy Transfer</div>
+  </div>
+
+  <!-- KINETIC PARTICLE MODEL -->
+  <section class="board-section">
+    <span class="tab a">Kinetic Particle Model</span>
+    <div class="notes-grid">
+
+      <article class="note note--a r1">
+        <h3>States of matter</h3>
+        <p><strong>Solid:</strong> particles fixed in position, vibrating. <strong>Liquid:</strong> close together, sliding past each other. <strong>Gas:</strong> far apart, moving freely at high speed.</p>
+      </article>
+
+      <article class="note note--a r3">
+        <h3>Kinetic particle model</h3>
+        <p>All particles have kinetic energy. Temperature is a measure of the average kinetic energy of the particles in a substance.</p>
+      </article>
+
+      <article class="note note--a r2">
+        <h3>Brownian motion</h3>
+        <p>Smoke or pollen particles show random, jittery movement from being struck by fast-moving, invisible gas or liquid molecules — evidence that particles are constantly moving.</p>
+      </article>
+
+      <article class="note note--a r4">
+        <h3>Gas pressure (particle view)</h3>
+        <p>Gas pressure comes from particles colliding with the container walls. More frequent or harder collisions mean higher pressure.</p>
+      </article>
+
+      <article class="note note--a r5">
+        <h3>Absolute zero</h3>
+        <p>0 K = −273°C. The theoretical lowest possible temperature, where particles have minimum kinetic energy.</p>
+      </article>
+
+      <article class="note note--a r1">
+        <h3>Temperature scales</h3>
+        <p class="eq">T (K) = θ (°C) + 273</p>
+        <p>A change of 1 K is the same size as a change of 1°C.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- GAS LAWS -->
+  <section class="board-section">
+    <span class="tab b">Gas Laws</span>
+    <div class="notes-grid">
+
+      <article class="note note--b r3">
+        <h3>Pressure law</h3>
+        <p class="eq">p / T = constant</p>
+        <p>At constant volume, the pressure of a fixed mass of gas is directly proportional to its temperature in kelvin.</p>
+      </article>
+
+      <article class="note note--b r5">
+        <h3>Boyle's law</h3>
+        <p class="eq">p V = constant</p>
+        <p>At constant temperature, the pressure of a fixed mass of gas is inversely proportional to its volume.</p>
+      </article>
+
+      <article class="note note--b r2">
+        <h3>Volume–temperature law</h3>
+        <p class="eq">V / T = constant</p>
+        <p>At constant pressure, the volume of a fixed mass of gas is directly proportional to its temperature in kelvin.</p>
+      </article>
+
+      <article class="note note--b r4">
+        <h3>Explaining it with particles</h3>
+        <p>Heating a gas gives particles more kinetic energy, so they hit the walls more often and harder — raising pressure, or pushing the gas to expand, depending on what's held constant.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- THERMAL EXPANSION -->
+  <section class="board-section">
+    <span class="tab c">Thermal Expansion</span>
+    <div class="notes-grid">
+
+      <article class="note note--c r1">
+        <h3>Thermal expansion</h3>
+        <p>Most solids, liquids, and gases expand when heated. Gases expand the most, then liquids, then solids.</p>
+      </article>
+
+      <article class="note note--c r4">
+        <h3>Explaining it with particles</h3>
+        <p>Heating raises particle kinetic energy, so particles vibrate more (solids) or move faster and spread out (liquids/gases) — increasing their average separation.</p>
+      </article>
+
+      <article class="note note--c r2">
+        <h3>Expansion gaps</h3>
+        <p>Bridges, railway tracks, and overhead power lines are built with small gaps or slack so they can expand on hot days without buckling.</p>
+      </article>
+
+      <article class="note note--c r5">
+        <h3>Bimetallic strips</h3>
+        <p>Two different metals bonded together expand at different rates, so the strip bends when heated. Used in thermostats and fire alarms.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SPECIFIC HEAT CAPACITY -->
+  <section class="board-section">
+    <span class="tab d">Specific Heat Capacity</span>
+    <div class="notes-grid">
+
+      <article class="note note--d r3">
+        <h3>Specific heat capacity</h3>
+        <p class="eq">E = m c Δθ</p>
+        <p>The energy needed to raise the temperature of 1 kg of a substance by 1°C (or 1 K).</p>
+      </article>
+
+      <article class="note note--d r1">
+        <h3>Measuring it</h3>
+        <p>Supply a known electrical energy (E = VIt) to a known mass of the substance and measure the resulting temperature rise.</p>
+      </article>
+
+      <article class="note note--d r5">
+        <h3>Why it matters</h3>
+        <p>A substance with a high specific heat capacity — like water — heats up and cools down slowly, which is useful for storing thermal energy.</p>
+      </article>
+
+      <article class="note note--d r2">
+        <h3>Change of state</h3>
+        <p>Melting and boiling happen at constant temperature. The energy supplied breaks bonds between particles rather than raising their kinetic energy.</p>
+      </article>
+
+      <article class="note note--d r4">
+        <h3>Evaporation vs boiling</h3>
+        <p>Evaporation happens at any temperature, only at the liquid's surface, and cools the liquid — the fastest-moving particles escape, lowering the average kinetic energy left behind.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- THERMAL ENERGY TRANSFER -->
+  <section class="board-section">
+    <span class="tab e">Thermal Energy Transfer</span>
+    <div class="notes-grid">
+
+      <article class="note note--e r4">
+        <h3>Conduction</h3>
+        <p>Vibrating particles pass energy to their neighbours. Good in solids, especially metals — their free electrons carry energy quickly. Poor in gases.</p>
+      </article>
+
+      <article class="note note--e r2">
+        <h3>Convection</h3>
+        <p>Thermal energy is carried by the movement of a fluid itself. Heated fluid becomes less dense and rises, replaced by cooler, denser fluid — a convection current.</p>
+      </article>
+
+      <article class="note note--e r5">
+        <h3>Radiation</h3>
+        <p>Thermal energy transferred as infrared electromagnetic waves. Needs no medium, so it works through a vacuum.</p>
+      </article>
+
+      <article class="note note--e r1">
+        <h3>Comparing surfaces</h3>
+        <p>Dark, matte surfaces absorb and emit infrared radiation well. Light, shiny surfaces reflect more and are poor absorbers and emitters.</p>
+      </article>
+
+      <article class="note note--e r3">
+        <h3>Reducing heat loss</h3>
+        <p>Insulation cuts conduction; a vacuum flask's gap cuts conduction and convection; a silvered surface cuts radiation.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>Cambridge IGCSE Physics 0625 · Unit 2 — Thermal Physics</footer>
+
+</div>
+</body>
+</html>

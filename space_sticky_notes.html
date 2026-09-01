@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Space Physics — Revision Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --board-bg: #16211c;
+    --board-bg-2: #131c17;
+    --trace: rgba(120, 200, 160, 0.09);
+    --trace-strong: rgba(120, 200, 160, 0.16);
+    --note-a: #f3d66c;   --note-a-2: #eecd57;   /* The Earth */
+    --note-b: #86c1da;   --note-b-2: #6fb2cf;   /* The Solar System */
+    --note-c: #8fd6a8;   --note-c-2: #78c894;   /* The Sun as a Star */
+    --note-d: #c6a6dd;   --note-d-2: #b48ccf;   /* Stars */
+    --note-e: #e78a72;   --note-e-2: #e0765b;   /* The Universe */
+    --ink: #23291f;
+    --ink-soft: #3a4232;
+    --paper-edge: rgba(0,0,0,0.14);
+    --pin-metal: #cfd6d1;
+    --pin-metal-dark: #8b938c;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 18% 8%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 82% 22%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 40% 65%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 68% 88%, var(--trace-strong) 0, transparent 2px),
+      repeating-linear-gradient(90deg, var(--trace) 0px, var(--trace) 1px, transparent 1px, transparent 64px),
+      repeating-linear-gradient(0deg, var(--trace) 0px, var(--trace) 1px, transparent 1px, transparent 64px),
+      linear-gradient(160deg, var(--board-bg) 0%, var(--board-bg-2) 100%);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    padding: 40px 20px 70px;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  /* ---- Title card ---- */
+  .title-card {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto 56px;
+    background: linear-gradient(180deg, #fbf3d9 0%, #f5e8bd 100%);
+    border-radius: 3px;
+    padding: 30px 38px 26px;
+    text-align: center;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35), 0 2px 0 var(--paper-edge);
+    transform: rotate(-0.6deg);
+  }
+  .title-card::before,
+  .title-card::after {
+    content: "";
+    position: absolute;
+    top: -9px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--pin-metal), var(--pin-metal-dark));
+    box-shadow: 0 3px 4px rgba(0,0,0,0.4);
+  }
+  .title-card::before { left: 30px; transform: rotate(-8deg); }
+  .title-card::after  { right: 30px; transform: rotate(10deg); }
+  .title-card h1 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1;
+    margin: 6px 0 10px;
+    color: #2a1f0f;
+  }
+  .title-card p { margin: 0; font-size: 0.92rem; color: #5c5136; font-weight: 500; }
+
+  /* ---- Legend ---- */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 22px;
+    margin: 0 auto 48px;
+    max-width: 800px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.86rem; color: #cfe3d6; }
+  .swatch { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+  .swatch.a { background: var(--note-a-2); }
+  .swatch.b { background: var(--note-b-2); }
+  .swatch.c { background: var(--note-c-2); }
+  .swatch.d { background: var(--note-d-2); }
+  .swatch.e { background: var(--note-e-2); }
+
+  /* ---- Sections ---- */
+  .board-section { margin-bottom: 52px; }
+
+  .tab {
+    display: inline-block;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.55rem;
+    padding: 5px 22px 8px;
+    border-radius: 6px 6px 0 0;
+    margin-left: 18px;
+    margin-bottom: -2px;
+    position: relative;
+    z-index: 2;
+    color: var(--ink);
+  }
+  .tab.a { background: var(--note-a); }
+  .tab.b { background: var(--note-b); }
+  .tab.c { background: var(--note-c); }
+  .tab.d { background: var(--note-d); }
+  .tab.e { background: var(--note-e); }
+
+  .notes-grid {
+    background: rgba(0,0,0,0.15);
+    border-radius: 4px;
+    padding: 30px 26px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px 22px;
+    align-items: flex-start;
+  }
+
+  /* ---- Notes ---- */
+  .note {
+    position: relative;
+    width: 232px;
+    min-height: 168px;
+    padding: 20px 18px 16px;
+    border-radius: 2px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.30);
+  }
+  .note.r1 { transform: rotate(-2.4deg); }
+  .note.r2 { transform: rotate(1.8deg); }
+  .note.r3 { transform: rotate(-0.9deg); }
+  .note.r4 { transform: rotate(2.6deg); }
+  .note.r5 { transform: rotate(-1.6deg); }
+
+  .note::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--pin-metal), var(--pin-metal-dark));
+    box-shadow: 0 3px 3px rgba(0,0,0,0.4);
+  }
+
+  .note--a { background: linear-gradient(180deg, var(--note-a) 0%, var(--note-a-2) 100%); }
+  .note--b { background: linear-gradient(180deg, var(--note-b) 0%, var(--note-b-2) 100%); }
+  .note--c { background: linear-gradient(180deg, var(--note-c) 0%, var(--note-c-2) 100%); }
+  .note--d { background: linear-gradient(180deg, var(--note-d) 0%, var(--note-d-2) 100%); }
+  .note--e { background: linear-gradient(180deg, var(--note-e) 0%, var(--note-e-2) 100%); }
+
+  .note h3 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin: 0 0 8px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  .note p { margin: 0 0 7px; font-size: 0.79rem; line-height: 1.42; color: var(--ink-soft); }
+  .note p:last-child { margin-bottom: 0; }
+
+  .note .eq {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 0.83rem;
+    background: rgba(255,255,255,0.32);
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin: 2px 0 7px;
+  }
+
+  footer { text-align: center; color: #79897e; font-size: 0.78rem; margin-top: 10px; }
+
+  @media (max-width: 640px) {
+    .title-card h1 { font-size: 2.3rem; }
+    .note { width: 100%; }
+    .notes-grid { padding: 24px 16px 18px; }
+    .tab { margin-left: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="title-card">
+    <h1>Space Physics</h1>
+    <p>Revision notes for Cambridge IGCSE Physics 0625, Unit 6</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="swatch a"></span>The Earth</div>
+    <div class="legend-item"><span class="swatch b"></span>The Solar System</div>
+    <div class="legend-item"><span class="swatch c"></span>The Sun as a Star</div>
+    <div class="legend-item"><span class="swatch d"></span>Stars</div>
+    <div class="legend-item"><span class="swatch e"></span>The Universe</div>
+  </div>
+
+  <!-- THE EARTH -->
+  <section class="board-section">
+    <span class="tab a">The Earth</span>
+    <div class="notes-grid">
+
+      <article class="note note--a r1">
+        <h3>Why things stay put</h3>
+        <p>Gravity pulls objects towards Earth's centre, keeping them on the surface and holding the atmosphere in place.</p>
+      </article>
+
+      <article class="note note--a r3">
+        <h3>The Moon's orbit</h3>
+        <p>The gravitational pull between Earth and Moon provides the centripetal force that keeps the Moon in its roughly circular orbit.</p>
+      </article>
+
+      <article class="note note--a r2">
+        <h3>Day</h3>
+        <p>One full rotation of the Earth on its axis takes about 24 hours, causing day and night.</p>
+      </article>
+
+      <article class="note note--a r4">
+        <h3>Year</h3>
+        <p>One full orbit of the Earth around the Sun takes about 365.25 days.</p>
+      </article>
+
+      <article class="note note--a r5">
+        <h3>Seasons</h3>
+        <p>Caused by the tilt of Earth's axis (about 23.5°). As Earth orbits, each hemisphere tilts towards or away from the Sun, changing day length and how directly sunlight hits it.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- THE SOLAR SYSTEM -->
+  <section class="board-section">
+    <span class="tab b">The Solar System</span>
+    <div class="notes-grid">
+
+      <article class="note note--b r3">
+        <h3>The Solar System</h3>
+        <p>The Sun, eight planets and their moons, dwarf planets, asteroids, and comets — all held in orbit by the Sun's gravity.</p>
+      </article>
+
+      <article class="note note--b r5">
+        <h3>Why orbits happen</h3>
+        <p>Gravitational attraction provides the centripetal force that curves an object's path into an orbit, instead of it travelling off in a straight line.</p>
+      </article>
+
+      <article class="note note--b r1">
+        <h3>Orbital speed vs radius</h3>
+        <p>For objects orbiting the same body, a smaller orbital radius means a faster orbital speed and a shorter orbital period.</p>
+      </article>
+
+      <article class="note note--b r4">
+        <h3>Comets</h3>
+        <p>Follow a highly elliptical orbit around the Sun — moving fastest at their closest approach and slowest when furthest away.</p>
+      </article>
+
+      <article class="note note--b r2">
+        <h3>Artificial satellites</h3>
+        <p><strong>Geostationary:</strong> 24-hour orbit above the equator, staying over one point (comms, weather). <strong>Polar/low-orbit:</strong> low altitude, short period, passes over the poles (monitoring, imaging).</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- THE SUN AS A STAR -->
+  <section class="board-section">
+    <span class="tab c">The Sun as a Star</span>
+    <div class="notes-grid">
+
+      <article class="note note--c r4">
+        <h3>The Sun</h3>
+        <p>An ordinary main sequence star — the closest star to Earth, and by far the largest object in the Solar System.</p>
+      </article>
+
+      <article class="note note--c r2">
+        <h3>Nuclear fusion</h3>
+        <p>In the Sun's core, hydrogen nuclei fuse together to form helium, releasing the huge amounts of energy that power the Sun.</p>
+      </article>
+
+      <article class="note note--c r5">
+        <h3>Energy radiated</h3>
+        <p>The Sun radiates energy across the electromagnetic spectrum — mostly visible light and infrared — giving Earth the light and heat that supports life.</p>
+      </article>
+
+      <article class="note note--c r1">
+        <h3>The Sun's life stage</h3>
+        <p>Currently a stable main sequence star, roughly halfway through its life cycle.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- STARS -->
+  <section class="board-section">
+    <span class="tab d">Stars</span>
+    <div class="notes-grid">
+
+      <article class="note note--d r2">
+        <h3>Star formation</h3>
+        <p>A star forms when gravity pulls together a huge cloud of gas and dust (a nebula), which contracts and heats up.</p>
+      </article>
+
+      <article class="note note--d r4">
+        <h3>Main sequence</h3>
+        <p>Once hydrogen fusion begins in the core, a star becomes a stable main sequence star — the stage where stars spend most of their lives.</p>
+      </article>
+
+      <article class="note note--d r1">
+        <h3>Life cycle of a Sun-like star</h3>
+        <p>Main sequence → red giant → outer layers drift away → white dwarf.</p>
+      </article>
+
+      <article class="note note--d r5">
+        <h3>Life cycle of a massive star</h3>
+        <p>Main sequence → red supergiant → supernova → neutron star or black hole.</p>
+      </article>
+
+      <article class="note note--d r3">
+        <h3>Balance within a star</h3>
+        <p>A star balances gravity pulling inward against the outward pressure from fusion. When fuel runs low, gravity takes over and the star moves to its next stage.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- THE UNIVERSE -->
+  <section class="board-section">
+    <span class="tab e">The Universe</span>
+    <div class="notes-grid">
+
+      <article class="note note--e r3">
+        <h3>Galaxies</h3>
+        <p>Huge collections of billions of stars held together by gravity. Our Solar System sits within the Milky Way galaxy.</p>
+      </article>
+
+      <article class="note note--e r1">
+        <h3>Redshift</h3>
+        <p>Light from distant galaxies is shifted towards longer, redder wavelengths — evidence that those galaxies are moving away from us.</p>
+      </article>
+
+      <article class="note note--e r4">
+        <h3>Expanding universe</h3>
+        <p>The further away a galaxy is, the greater its redshift and the faster it's receding — evidence that the whole universe is expanding.</p>
+      </article>
+
+      <article class="note note--e r2">
+        <h3>The Big Bang theory</h3>
+        <p>The idea that the universe began from an extremely hot, dense point and has been expanding ever since. Supported by the redshift evidence.</p>
+      </article>
+
+      <article class="note note--e r5">
+        <h3>Light-year</h3>
+        <p>The distance light travels in one year — a unit of distance, not time. Used because distances between stars and galaxies are so vast.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>Cambridge IGCSE Physics 0625 · Unit 6 — Space Physics</footer>
+
+</div>
+</body>
+</html>
