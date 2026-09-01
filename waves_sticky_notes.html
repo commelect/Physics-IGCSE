@@ -254,13 +254,54 @@
   /* ---- Print ---- */
   @media print {
     body { background: #ffffff; padding: 20px 12px; }
+    .top-menu-link { display: none; }
     .nav-buttons { display: none; }
     .note, .title-card, .chapter, .nav-btn { box-shadow: none; }
+  }
+
+  /* ---- Top bar ---- */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto 26px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .top-bar--signature-only { justify-content: flex-end; }
+  .top-menu-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--ink);
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .top-menu-link:hover { transform: translateY(-2px); box-shadow: 0 4px 9px rgba(0,0,0,0.1); }
+  .top-signature {
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--ink-soft);
   }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="top-bar">
+    <a class="top-menu-link" href="index.html">☰ All Units</a>
+    <span class="top-signature">— Eng. Nesrin Ibrahim</span>
+  </div>
+
 
   <div class="title-card">
     <h1>Waves</h1>
@@ -455,10 +496,9 @@
 
     <nav class="nav-buttons">
     <a class="nav-btn nav-prev" href="thermal_sticky_notes.html">‹ Previous <span class="nav-label">Unit 2 – Thermal Physics</span></a>
-    <a class="nav-btn nav-menu" href="index.html">☰ All Units</a>
     <a class="nav-btn nav-next" href="electricity_sticky_notes.html">Next › <span class="nav-label">Unit 4 – Electricity & Magnetism</span></a>
   </nav>
-<footer>Cambridge IGCSE Physics 0625 · Unit 3 — Waves<div class="signature">— Eng. Nesrin Ibrahim</div></footer>
+<footer>Cambridge IGCSE Physics 0625 · Unit 3 — Waves</footer>
 
 </div>
 </body>
