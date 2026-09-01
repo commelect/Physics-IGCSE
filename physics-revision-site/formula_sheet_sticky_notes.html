@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formula Sheet — Revision Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --board-bg: #16211c;
+    --board-bg-2: #131c17;
+    --trace: rgba(120, 200, 160, 0.09);
+    --trace-strong: rgba(120, 200, 160, 0.16);
+    --note-a: #f3d66c;   --note-a-2: #eecd57;   /* Mechanics */
+    --note-b: #e78a72;   --note-b-2: #e0765b;   /* Thermal Physics */
+    --note-c: #86c1da;   --note-c-2: #6fb2cf;   /* Waves */
+    --note-d: #8fd6a8;   --note-d-2: #78c894;   /* Electricity & Magnetism */
+    --note-e: #c6a6dd;   --note-e-2: #b48ccf;   /* Nuclear Physics */
+    --note-f: #e2a0c0;   --note-f-2: #d287ac;   /* Space Physics */
+    --ink: #23291f;
+    --ink-soft: #3a4232;
+    --paper-edge: rgba(0,0,0,0.14);
+    --pin-metal: #cfd6d1;
+    --pin-metal-dark: #8b938c;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 18% 8%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 82% 22%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 40% 65%, var(--trace-strong) 0, transparent 2px),
+      radial-gradient(circle at 68% 88%, var(--trace-strong) 0, transparent 2px),
+      repeating-linear-gradient(90deg, var(--trace) 0px, var(--trace) 1px, transparent 1px, transparent 64px),
+      repeating-linear-gradient(0deg, var(--trace) 0px, var(--trace) 1px, transparent 1px, transparent 64px),
+      linear-gradient(160deg, var(--board-bg) 0%, var(--board-bg-2) 100%);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    padding: 40px 20px 70px;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  /* ---- Title card ---- */
+  .title-card {
+    position: relative;
+    max-width: 660px;
+    margin: 0 auto 56px;
+    background: linear-gradient(180deg, #fbf3d9 0%, #f5e8bd 100%);
+    border-radius: 3px;
+    padding: 30px 38px 26px;
+    text-align: center;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35), 0 2px 0 var(--paper-edge);
+    transform: rotate(-0.6deg);
+  }
+  .title-card::before,
+  .title-card::after {
+    content: "";
+    position: absolute;
+    top: -9px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--pin-metal), var(--pin-metal-dark));
+    box-shadow: 0 3px 4px rgba(0,0,0,0.4);
+  }
+  .title-card::before { left: 30px; transform: rotate(-8deg); }
+  .title-card::after  { right: 30px; transform: rotate(10deg); }
+  .title-card h1 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1;
+    margin: 6px 0 10px;
+    color: #2a1f0f;
+  }
+  .title-card p { margin: 0; font-size: 0.92rem; color: #5c5136; font-weight: 500; }
+
+  /* ---- Legend ---- */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 22px;
+    margin: 0 auto 12px;
+    max-width: 860px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.86rem; color: #cfe3d6; }
+  .swatch { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+  .swatch.a { background: var(--note-a-2); }
+  .swatch.b { background: var(--note-b-2); }
+  .swatch.c { background: var(--note-c-2); }
+  .swatch.d { background: var(--note-d-2); }
+  .swatch.e { background: var(--note-e-2); }
+  .swatch.f { background: var(--note-f-2); }
+
+  .legend-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #8fa199;
+    margin: 0 auto 48px;
+    max-width: 480px;
+  }
+
+  /* ---- Sections ---- */
+  .board-section { margin-bottom: 52px; }
+
+  .tab {
+    display: inline-block;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.55rem;
+    padding: 5px 22px 8px;
+    border-radius: 6px 6px 0 0;
+    margin-left: 18px;
+    margin-bottom: -2px;
+    position: relative;
+    z-index: 2;
+    color: var(--ink);
+  }
+  .tab.a { background: var(--note-a); }
+  .tab.b { background: var(--note-b); }
+  .tab.c { background: var(--note-c); }
+  .tab.d { background: var(--note-d); }
+  .tab.e { background: var(--note-e); }
+  .tab.f { background: var(--note-f); }
+
+  .notes-grid {
+    background: rgba(0,0,0,0.15);
+    border-radius: 4px;
+    padding: 30px 26px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px 22px;
+    align-items: flex-start;
+  }
+
+  /* ---- Notes ---- */
+  .note {
+    position: relative;
+    width: 232px;
+    min-height: 168px;
+    padding: 20px 18px 16px;
+    border-radius: 2px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.30);
+  }
+  .note.r1 { transform: rotate(-2.4deg); }
+  .note.r2 { transform: rotate(1.8deg); }
+  .note.r3 { transform: rotate(-0.9deg); }
+  .note.r4 { transform: rotate(2.6deg); }
+  .note.r5 { transform: rotate(-1.6deg); }
+
+  .note::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--pin-metal), var(--pin-metal-dark));
+    box-shadow: 0 3px 3px rgba(0,0,0,0.4);
+  }
+
+  .note--a { background: linear-gradient(180deg, var(--note-a) 0%, var(--note-a-2) 100%); }
+  .note--b { background: linear-gradient(180deg, var(--note-b) 0%, var(--note-b-2) 100%); }
+  .note--c { background: linear-gradient(180deg, var(--note-c) 0%, var(--note-c-2) 100%); }
+  .note--d { background: linear-gradient(180deg, var(--note-d) 0%, var(--note-d-2) 100%); }
+  .note--e { background: linear-gradient(180deg, var(--note-e) 0%, var(--note-e-2) 100%); }
+  .note--f { background: linear-gradient(180deg, var(--note-f) 0%, var(--note-f-2) 100%); }
+
+  .note h3 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.32rem;
+    margin: 0 0 8px;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+
+  .note p { margin: 0 0 6px; font-size: 0.78rem; line-height: 1.4; color: var(--ink-soft); }
+  .note p:last-child { margin-bottom: 0; }
+
+  .note .eq {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 0.82rem;
+    background: rgba(255,255,255,0.32);
+    display: block;
+    width: fit-content;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin: 2px 0 5px;
+  }
+
+  .note .derived-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  footer { text-align: center; color: #79897e; font-size: 0.78rem; margin-top: 10px; }
+
+  @media (max-width: 640px) {
+    .title-card h1 { font-size: 2.3rem; }
+    .note { width: 100%; }
+    .notes-grid { padding: 24px 16px 18px; }
+    .tab { margin-left: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="title-card">
+    <h1>Formula Sheet</h1>
+    <p>Cambridge IGCSE Physics 0625 — whole syllabus, core and derived equations</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="swatch a"></span>Mechanics</div>
+    <div class="legend-item"><span class="swatch b"></span>Thermal Physics</div>
+    <div class="legend-item"><span class="swatch c"></span>Waves</div>
+    <div class="legend-item"><span class="swatch d"></span>Electricity & Magnetism</div>
+    <div class="legend-item"><span class="swatch e"></span>Nuclear Physics</div>
+    <div class="legend-item"><span class="swatch f"></span>Space Physics</div>
+  </div>
+  <p class="legend-note">Notes marked <span class="derived-tag">(derived)</span> aren't given directly in the syllabus formula list — they come from combining two or more core equations.</p>
+
+  <!-- MECHANICS -->
+  <section class="board-section">
+    <span class="tab a">Mechanics</span>
+    <div class="notes-grid">
+
+      <article class="note note--a r1">
+        <h3>Speed & density</h3>
+        <p class="eq">speed = distance / time</p>
+        <p class="eq">ρ = m / V</p>
+      </article>
+
+      <article class="note note--a r3">
+        <h3>Acceleration</h3>
+        <p class="eq">a = (v − u) / t</p>
+      </article>
+
+      <article class="note note--a r2">
+        <h3>Equations of motion</h3>
+        <p class="eq">v = u + at</p>
+        <p>Also: s = ((u+v)/2)t, s = ut + ½at², v² = u² + 2as — the last two come from combining the first two.</p>
+      </article>
+
+      <article class="note note--a r4">
+        <h3>Newton's 2nd law & weight</h3>
+        <p class="eq">F = ma</p>
+        <p class="eq">W = mg</p>
+        <p>Weight is just F = ma with a replaced by g.</p>
+      </article>
+
+      <article class="note note--a r5">
+        <h3>Momentum & impulse <span class="derived-tag">(derived)</span></h3>
+        <p class="eq">p = mv</p>
+        <p class="eq">Ft = Δ(mv)</p>
+        <p>Impulse (Ft) equals the change in momentum — from combining F = ma with a = (v−u)/t.</p>
+      </article>
+
+      <article class="note note--a r1">
+        <h3>Moments & Hooke's law</h3>
+        <p class="eq">moment = F × d</p>
+        <p class="eq">F = kx</p>
+      </article>
+
+      <article class="note note--a r3">
+        <h3>Work, energy & power</h3>
+        <p class="eq">W = Fd&nbsp; GPE = mgh</p>
+        <p class="eq">KE = ½mv²&nbsp; P = W/t</p>
+      </article>
+
+      <article class="note note--a r5">
+        <h3>Falling speed <span class="derived-tag">(derived)</span></h3>
+        <p class="eq">v = √(2gh)</p>
+        <p>From energy conservation, mgh = ½mv², rearranged for the speed after falling height h from rest.</p>
+      </article>
+
+      <article class="note note--a r2">
+        <h3>Power from force & speed <span class="derived-tag">(derived)</span></h3>
+        <p class="eq">P = Fv</p>
+        <p>From P = W/t and W = Fd, since d/t = v.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- THERMAL PHYSICS -->
+  <section class="board-section">
+    <span class="tab b">Thermal Physics</span>
+    <div class="notes-grid">
+
+      <article class="note note--b r4">
+        <h3>Specific heat capacity</h3>
+        <p class="eq">E = m c Δθ</p>
+      </article>
+
+      <article class="note note--b r2">
+        <h3>Specific latent heat</h3>
+        <p class="eq">E = m L</p>
+      </article>
+
+      <article class="note note--b r5">
+        <h3>Temperature scale</h3>
+        <p class="eq">T (K) = θ (°C) + 273</p>
+      </article>
+
+      <article class="note note--b r1">
+        <h3>The gas laws</h3>
+        <p class="eq">p / T = const.&nbsp; (pressure law)</p>
+        <p class="eq">pV = const.&nbsp; (Boyle's law)</p>
+        <p class="eq">V / T = const.&nbsp; (volume law)</p>
+      </article>
+
+      <article class="note note--b r3">
+        <h3>Combined gas law <span class="derived-tag">(derived)</span></h3>
+        <p class="eq">p₁V₁/T₁ = p₂V₂/T₂</p>
+        <p>Merges all three individual gas laws into one relationship for a fixed mass of gas.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- WAVES -->
+  <section class="board-section">
+    <span class="tab c">Waves</span>
+    <div class="notes-grid">
+
+      <article class="note note--c r2">
+        <h3>Wave speed</h3>
+        <p class="eq">v = f λ</p>
+        <p class="eq">T = 1 / f</p>
+      </article>
+
+      <article class="note note--c r5">
+        <h3>Refractive index</h3>
+        <p class="eq">n = sin i / sin r</p>
+        <p class="eq">n = c / v</p>
+      </article>
+
+      <article class="note note--c r3">
+        <h3>Critical angle <span class="derived-tag">(derived)</span></h3>
+        <p class="eq">sin C = 1 / n</p>
+        <p>From n = sin i/sin r, applied at the critical angle, where the refracted ray grazes the boundary at 90°.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ELECTRICITY & MAGNETISM -->
+  <section class="board-section">
+    <span class="tab d">Electricity & Magnetism</span>
+    <div class="notes-grid">
+
+      <article class="note note--d r1">
+        <h3>Current, charge & p.d.</h3>
+        <p class="eq">I = Q / t</p>
+        <p class="eq">V = W / Q</p>
+      </article>
+
+      <article class="note note--d r4">
+        <h3>Resistance</h3>
+        <p class="eq">R = V / I</p>
+      </article>
+
+      <article class="note note--d r2">
+        <h3>Series & parallel resistance</h3>
+        <p class="eq">R = R₁ + R₂ + …</p>
+        <p class="eq">1/R = 1/R₁ + 1/R₂ + …</p>
+      </article>
+
+      <article class="note note--d r5">
+        <h3>Power <span class="derived-tag">(two forms derived)</span></h3>
+        <p class="eq">P = VI</p>
+        <p class="eq">P = I²R&nbsp; P = V²/R</p>
+        <p>The last two come from substituting V = IR into P = VI.</p>
+      </article>
+
+      <article class="note note--d r3">
+        <h3>Electrical energy</h3>
+        <p class="eq">E = Pt = VIt</p>
+      </article>
+
+      <article class="note note--d r1">
+        <h3>Transformer</h3>
+        <p class="eq">Vₚ/Vₛ = Nₚ/Nₛ</p>
+        <p class="eq">VₚIₚ = VₛIₛ <span class="derived-tag">(derived)</span></p>
+        <p>The second comes from energy conservation — power in equals power out for an ideal transformer.</p>
+      </article>
+
+      <article class="note note--d r4">
+        <h3>Force on a conductor</h3>
+        <p class="eq">F = B I L</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- NUCLEAR PHYSICS -->
+  <section class="board-section">
+    <span class="tab e">Nuclear Physics</span>
+    <div class="notes-grid">
+
+      <article class="note note--e r3">
+        <h3>Nuclide notation</h3>
+        <p class="eq">ᴬZX</p>
+        <p>A = nucleon number, Z = proton number.</p>
+      </article>
+
+      <article class="note note--e r5">
+        <h3>Half-life</h3>
+        <p class="eq">fraction remaining = (½)ⁿ</p>
+        <p>n = number of half-lives elapsed.</p>
+      </article>
+
+      <article class="note note--e r1">
+        <h3>Conservation in decay</h3>
+        <p>In any nuclear equation, total nucleon number (A) and total proton number (Z) balance on both sides — that's what makes alpha/beta decay equations work, rather than a single formula.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SPACE PHYSICS -->
+  <section class="board-section">
+    <span class="tab f">Space Physics</span>
+    <div class="notes-grid">
+
+      <article class="note note--f r2">
+        <h3>Orbital speed <span class="derived-tag">(derived)</span></h3>
+        <p class="eq">v = 2πr / T</p>
+        <p>From speed = distance/time, using the orbit's circumference (2πr) over the orbital period T.</p>
+      </article>
+
+      <article class="note note--f r4">
+        <h3>Radius & period</h3>
+        <p>No set formula, but worth remembering: for objects orbiting the same body, a smaller orbital radius means a faster speed and a shorter period.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>Cambridge IGCSE Physics 0625 · Formula sheet across Units 1–6</footer>
+
+</div>
+</body>
+</html>
