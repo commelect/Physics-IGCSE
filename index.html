@@ -9,10 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --board-bg: #16211c;
-    --board-bg-2: #131c17;
-    --trace: rgba(120, 200, 160, 0.09);
-    --trace-strong: rgba(120, 200, 160, 0.16);
+    --board-bg: #f7f6f0;
+    --board-bg-2: #eceadd;
+    --trace: rgba(140, 125, 95, 0.05);
+    --trace-strong: rgba(140, 125, 95, 0.09);
     --note-a: #f3d66c;   --note-a-2: #eecd57;   /* Mechanics */
     --note-b: #e78a72;   --note-b-2: #e0765b;   /* Thermal Physics */
     --note-c: #86c1da;   --note-c-2: #6fb2cf;   /* Waves */
@@ -145,7 +145,69 @@
   .chapter.g { grid-column: 1 / -1; }
   .chapter.g h2 { font-size: 1.9rem; }
 
-  footer { text-align: center; color: #79897e; font-size: 0.78rem; margin-top: 46px; }
+  footer { text-align: center; color: #5f6b60; font-size: 0.78rem; margin-top: 46px; }
+
+  /* ---- Navigation ---- */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    max-width: 860px;
+    margin: 8px auto 40px;
+    flex-wrap: wrap;
+  }
+  .nav-buttons--single { justify-content: center; }
+  .nav-btn {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--ink);
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 6px;
+    padding: 9px 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    box-shadow: 0 3px 7px rgba(0,0,0,0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    min-width: 150px;
+    text-align: center;
+  }
+  .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.12); }
+  .nav-btn .nav-label {
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-top: 2px;
+    color: var(--ink-soft);
+  }
+  .nav-btn.nav-menu {
+    background: linear-gradient(180deg, #fbf3d9 0%, #f5e8bd 100%);
+    min-width: 130px;
+  }
+  .nav-btn--placeholder {
+    visibility: hidden;
+    min-width: 150px;
+  }
+
+  /* ---- Signature ---- */
+  footer .signature {
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    font-size: 1.35rem;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+
+  /* ---- Print ---- */
+  @media print {
+    body { background: #ffffff; padding: 20px 12px; }
+    .nav-buttons { display: none; }
+    .note, .title-card, .chapter, .nav-btn { box-shadow: none; }
+  }
 </style>
 </head>
 <body>
@@ -202,7 +264,10 @@
 
   </div>
 
-  <footer>Cambridge IGCSE Physics 0625</footer>
+    <nav class="nav-buttons nav-buttons--single">
+    <a class="nav-btn nav-next" href="mechanics_sticky_notes.html">Next › <span class="nav-label">Unit 1 – Mechanics</span></a>
+  </nav>
+<footer>Cambridge IGCSE Physics 0625<div class="signature">— Eng. Nesrin Ibrahim</div></footer>
 
 </div>
 </body>
